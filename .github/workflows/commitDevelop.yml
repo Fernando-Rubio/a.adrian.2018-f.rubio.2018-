@@ -1,0 +1,64 @@
+name: commitDevelop
+
+on:
+  create: 
+    branches: [ develop ]
+
+  workflow_dispatch:
+
+jobs:
+  test_selenium:
+    runs-on: ubuntu-latest
+    steps:
+        # STEP CHECKOUT 
+      - name: Checkout commit 
+        uses: actions/checkout@v2
+        #with:
+         #ref: 'dev'
+        
+        # INSTALAR JAVA  
+      - name: Set up JDK 11 
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+            
+        # TEST E2E SELENIUM 
+      - name: Maven Build TEST SELENIUM
+        run: mvn -B '-Dtest=es.urjc.code.daw.library.e2e.selenium.*Test' test
+  
+  test_rest:
+    runs-on: ubuntu-latest
+    steps:
+        # STEP CHECKOUT 
+      - name: Checkout commit 
+        uses: actions/checkout@v2
+        #with:
+         #ref: 'dev'
+        
+        # INSTALAR JAVA  
+      - name: Set up JDK 11 
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+          
+        # TEST E2E REST
+      - name: Maven Build TEST REST
+        run: mvn -B '-Dtest=es.urjc.code.daw.library.e2e.rest.*Test' test
+
+  test_unitario:
+    runs-on: ubuntu-latest
+    steps:
+        # STEP CHECKOUT 
+      - name: Checkout commit 
+        uses: actions/checkout@v2
+        #with:
+         #ref: 'dev'
+        
+        # INSTALAR JAVA  
+      - name: Set up JDK 11 
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+        # TEST UNITARIOS
+      - name: Maven Build TEST UNITARIO
+        run: mvn -B '-Dtest=es.urjc.code.daw.library.unitary.*Test' test
