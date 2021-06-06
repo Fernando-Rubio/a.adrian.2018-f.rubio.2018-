@@ -43,8 +43,8 @@ jobs:
         # STEP CHECKOUT 
       - name: Checkout commit 
         uses: actions/checkout@v2
-        #with:
-         #ref: 'dev'
+        with:
+         ref: 'dev'
         
         # INSTALAR JAVA  
       - name: Set up JDK 11 
@@ -64,8 +64,8 @@ jobs:
         # STEP CHECKOUT 
       - name: Checkout commit 
         uses: actions/checkout@v2
-        #with:
-         #ref: 'dev'
+        with:
+         ref: 'dev'
         
         # INSTALAR JAVA  
       - name: Set up JDK 11 
@@ -85,8 +85,8 @@ jobs:
         # STEP CHECKOUT 
       - name: Checkout commit 
         uses: actions/checkout@v2
-        #with:
-         #ref: 'dev'
+        with:
+         ref: 'dev'
         
         # INSTALAR JAVA  
       - name: Set up JDK 11 
