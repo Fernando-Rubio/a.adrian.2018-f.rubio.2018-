@@ -8,18 +8,18 @@ on:
 
 jobs:
 
-  which_branch:
+  extract_branch:
     runs-on: ubuntu-latest
+
     steps:
-      # extract branch name
       - name: Extract branch name
         shell: bash
-        run:  |
-          echo "NAME = ${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-        
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
       # print branch name
       - name: Get branch name
-        run: echo 'The branch name is' ${{ env.NAME }}
+        run: echo 'The branch name is' ${{ steps.extract_branch.outputs.branch }}
 
   build:
     runs-on: ubuntu-latest
