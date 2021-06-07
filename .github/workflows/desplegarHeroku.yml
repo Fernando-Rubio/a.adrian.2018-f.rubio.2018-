@@ -2,7 +2,7 @@ name: desplegarHeroku
 
 on:
   pull_request:
-    branches: release/**
+    branches: develop
 
   workflow_dispatch:
 
