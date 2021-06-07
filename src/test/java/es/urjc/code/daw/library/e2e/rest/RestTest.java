@@ -22,15 +22,26 @@ import io.restassured.http.ContentType;
 public class RestTest {
 
     @LocalServerPort
-    int port;
-
+    int port_sin;
+    
+    int port_con = 8080;
+    
     @BeforeEach
     public void setUp() {
-        RestAssured.port = port;
+    	host = System.getProperty("host", "localhost");
+    	
+    	if(host.equalsIgnoreCase("localhost")) {
+        	RestAssured.port = port_sin;
+        	host = "";
+    	}
+        else
+        	RestAssured.port = port_con;
     }
 
     @Autowired
     private ObjectMapper objectMapper;
+    
+	private String host;
 
     @Test
     @DisplayName("Añadir un nuevo libro y comprobar que se ha creado")
@@ -46,7 +57,7 @@ public class RestTest {
                     .body(objectMapper.writeValueAsString(book))
                     .contentType(ContentType.JSON).
             when()
-                .post("/api/books/").
+                .post(host + "/api/books/").
             then()
                 .assertThat()
                 .statusCode(201)
@@ -56,7 +67,7 @@ public class RestTest {
         // COMPROBAMOS QUE EL LIBRO SE HA CREADO CORRECTAMENTE
 
         when()
-            .get("/api/books/{id}", createdBook.getId())
+            .get(host + "/api/books/{id}", createdBook.getId())
         .then()
              .assertThat()
              .statusCode(200)
@@ -79,7 +90,7 @@ public class RestTest {
                     .body(objectMapper.writeValueAsString(book))
                     .contentType(ContentType.JSON)
             .when()
-                .post("/api/books/")
+                .post(host + "/api/books/")
             .then()
                 .assertThat()
                 .statusCode(201)
@@ -88,7 +99,7 @@ public class RestTest {
         
         // BORRAMOS EL LIBRO CREADO
         when()
-             .delete("/api/books/{id}",createdBook.getId())
+             .delete(host + "/api/books/{id}",createdBook.getId())
         .then()
              .assertThat()
                 .statusCode(200);
@@ -96,7 +107,7 @@ public class RestTest {
         // COMPROBAMOS QUE EL LIBRO YA NO EXISTE
 
         when()
-             .get("/api/books/{id}", createdBook.getId())
+             .get(host + "/api/books/{id}", createdBook.getId())
         .then()
              .assertThat()
                 .statusCode(404);

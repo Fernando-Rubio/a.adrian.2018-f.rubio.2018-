@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +29,8 @@ public class SeleniumTest {
 
     private WebDriver driver;
     private WebDriverWait wait;
+	private String host;
+
 
 	@BeforeAll
 	public static void setupClass() {
@@ -36,10 +39,13 @@ public class SeleniumTest {
 
 	@BeforeEach
 	public void setupTest() {
-        this.driver = new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--headless");
+		this.driver = new ChromeDriver(options);
         this.wait = new WebDriverWait(driver, 10);
+        host = System.getProperty("host", "localhost");        	
 	}
-
+    
 	@AfterEach
 	public void teardown() {
 		if (this.driver != null) {
@@ -52,7 +58,12 @@ public class SeleniumTest {
 	public void createBookTest() throws Exception {
 
         // GIVEN: Partiendo de que estamos en la página principal de la libreria
-        this.driver.get("http://localhost:"+this.port+"/");
+    	if(host.equalsIgnoreCase("localhost")) {
+            this.driver.get("http://localhost:"+this.port+"/");
+    	}
+    	else {
+    		this.driver.get(host+"/");
+    	}
 
         // WHEN: Creamos un nuevo libro
 
@@ -72,8 +83,12 @@ public class SeleniumTest {
 	public void deleteBookTest() throws Exception {
 
         // GIVEN: Partiendo de que estamos en la página principal de la libreria
-        this.driver.get("http://localhost:"+this.port+"/");
-
+    	if(host.equalsIgnoreCase("localhost")) {
+            this.driver.get("http://localhost:"+this.port+"/");
+    	}
+    	else {
+    		this.driver.get(host+"/");
+    	}
         // WHEN: 
         
         // Creamos un nuevo libro
