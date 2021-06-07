@@ -12,10 +12,11 @@ jobs:
     runs-on: ubuntu-latest
      
     steps:
+    
       - name: Clone repository
         uses: actions/checkout@v2
         with:
-          ref: develop
+          ref: release
           
         
       - name: Set up JDK 11
