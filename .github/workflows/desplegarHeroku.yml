@@ -8,24 +8,14 @@ on:
 
 jobs:
 
-  version:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Version
-        run: |
-          echo "TAG=$(mvn -q help:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_ENV
-  
   build:
     runs-on: ubuntu-latest
-    
-    env:
-      RELEASE: ${{ env.TAG }}
-    
+     
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
         with:
-          ref: release/$RELEASE
+          ref: develop
           
         
       - name: Set up JDK 11
@@ -53,19 +43,21 @@ jobs:
     env:
       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       HEROKU_APP: ${{ secrets.HEROKU_APP }}
-      RELEASE: ${GITHUB_REF##*/}
     
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
         with:
-          ref: release/$RELEASE
-
+          ref: develop
         
       - name: Download Jar from previous job
         uses: actions/download-artifact@v2
         with:
           name: target
+      
+      - name: Get Version
+        run: |
+          echo "TAG=$(mvn -q help:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_ENV
       
       - name: Build Docker Image
         run: docker build -t ${{ env.TAG }} .
@@ -114,13 +106,12 @@ jobs:
     
     env: 
       HOST: https://aadrian2018-frubio2018.herokuapp.com
-      RELEASE: ${{ env.TAG }}
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
         with:
-          ref: release/$RELEASE
+          ref: develop
 
         
       - name: Set up JDK 11
@@ -140,13 +131,12 @@ jobs:
     
     env: 
       HOST: https://aadrian2018-frubio2018.herokuapp.com/
-      RELEASE: ${{ env.TAG }}
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
         with:
-          ref: release/$RELEASE
+          ref: develop
 
         
       - name: Set up JDK 11
