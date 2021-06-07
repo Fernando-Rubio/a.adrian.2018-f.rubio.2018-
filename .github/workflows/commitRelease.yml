@@ -1,7 +1,7 @@
 name: commitRelease
 
 on:
-  create: 
+  push: 
     branches: release/**
 
   workflow_dispatch:
