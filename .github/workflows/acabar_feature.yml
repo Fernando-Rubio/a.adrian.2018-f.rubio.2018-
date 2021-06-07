@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: develop
     paths:
-      - 'feature-*'
+      - feature/*
   workflow_dispatch:
   
 jobs:
