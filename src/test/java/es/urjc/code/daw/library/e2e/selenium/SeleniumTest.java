@@ -42,14 +42,14 @@ public class SeleniumTest {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--headless");
 		this.driver = new ChromeDriver(options);
-        this.wait = new WebDriverWait(driver, 10);
-        host = System.getProperty("host", "localhost");        	
+        	this.wait = new WebDriverWait(driver, 10);
+        	host = System.getProperty("host", "localhost");        	
 	}
     
 	@AfterEach
 	public void teardown() {
 		if (this.driver != null) {
-            this.driver.quit();
+            		this.driver.quit();
 		}
     }
     
