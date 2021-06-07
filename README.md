@@ -19,3 +19,9 @@ virtual. El objetivo es incluir esta funcionalidad en la aplicación siguiendo e
 modelo de desarrollo de Git Flow, y acabar desplegando una versión de la aplicación en
 Heroku con esta funcionalidad de forma automática a través de las correspondientes GItHub
 Actions.
+
+----------------------
+En cuanto a la entrega, hemos intentado subir el zip con la carpeta de la rama master, pero no podíamos hacer un merge entre las ramas master - develop.
+Finalmente enviaremos la práctica con la rama develop
+----------------------
+
