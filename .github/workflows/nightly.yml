@@ -4,9 +4,10 @@ name: NIGHTLY
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow at 4:05
-  schedule:
-    - cron: '05 04 * * *'
+  pull_request:
+    branches: develop  # Triggers the workflow at 4:05
+  #schedule:
+    #- cron: '05 04 * * *'
     
   workflow_dispatch:
   
